@@ -13,19 +13,41 @@ from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 
 from wagtail.search import index
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 
 
 class BlogIndexPage(Page):
     intro = RichTextField(blank=True)
+    main_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
     def get_context(self, request):
         # Update context to include only published posts, ordered by reverse-chron
         context = super().get_context(request)
         blogpages = self.get_children().live().order_by('-first_published_at')
+        
+        paginator = Paginator(blogpages, 10) # Show 5 resources per page
+        page = request.GET.get('page')
+
+        try:
+            blogpages = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            blogpages = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            blogpages = paginator.page(paginator.num_pages)
+
         context['blogpages'] = blogpages
         return context
 
-    content_panels = Page.content_panels + ["intro"]
+    content_panels = Page.content_panels + ["intro", "main_image"]
 
 
 class BlogPageTag(TaggedItemBase):

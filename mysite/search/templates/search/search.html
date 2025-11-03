@@ -1,49 +1,87 @@
 {% extends "base.html" %}
-{% load static wagtailcore_tags %}
+{% load static wagtailcore_tags wagtailimages_tags %}
 
 {% block body_class %}template-searchresults{% endblock %}
 
 {% block title %}Search{% endblock %}
 
 {% block content %}
-<h1>Search</h1>
 
-<form action="{% url 'search' %}" method="get">
-    <input type="text" name="query"{% if search_query %} value="{{ search_query }}"{% endif %}>
-    <input type="submit" value="Search" class="button">
-</form>
+<!-- Page Header-->
+<header class="masthead" style="background-image: url('assets/img/post-bg.jpg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="post-heading">
+                    <h1>Поиск статей</h1>
+                    <p>Вы искали {% if search_query %} for “{{ search_query }}”{% endif %}, найдено статей: {{ search_results.paginator.count }}</p>
+   
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 
-{% if search_results %}
+
+
+
+
+        <!-- Main Content-->
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+
+
+                <form class="d-flex justify-content-center mb-3" action="{% url 'search' %}" method="get">
+                    <input type="text" name="query"{% if search_query %} value="{{ search_query }}"{% endif %}>
+                    <input type="submit" value="Найти" class="button">
+                </form>
+                    <!-- Post preview-->
+                    {% if search_results %}
+                    {% for result in search_results %}
+                    <div class="post-preview">
+                        <a href="{% pageurl result %}">
+                            <h2 class="post-title">{{ result }}</h2>
+                                {% if result.search_description %}
+                                <h3 class="post-subtitle">{{ result.search_description }}</h3>
+                                {% endif %}
+
+                        </a>
+
+                    </div>
+                    <!-- Divider-->
+                    <hr class="my-4" />
+                    {% endfor %}
+                    {% endif %}
+
+                    <div class="d-flex justify-content-center mb-4"><a class="btn btn-primary text-uppercase" href="/">Назад на главную</a></div>
+                    <!-- Pager-->
+                    {% if search_results.paginator.num_pages > 1 %}
+                        <p>Page {{ search_results.number }} of {{ search_results.paginator.num_pages }}, showing {{ search_results|length }} result{{ search_results|pluralize }} out of {{ search_results.paginator.count }}</p>
+                    {% endif %}
+
+                    {% if search_results.has_previous %}
+                    <a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}">Previous</a>
+                    {% endif %}
+
+                    {% if search_results.has_next %}
+                    <a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}">Next</a>
+                    {% endif %}
+                    
+                </div>
+            </div>
+        </div>
+
+
+
 
 {# Add this paragraph to display the details of results found: #}
-<p>You searched{% if search_query %} for “{{ search_query }}”{% endif %}, {{ search_results.paginator.count }} result{{ search_results.paginator.count|pluralize }} found.</p>
+
 
 {# Replace the <ul> HTML element with the <ol> html element: #}
-<ol>
-    {% for result in search_results %}
-    <li>
-        <h4><a href="{% pageurl result %}">{{ result }}</a></h4>
-        {% if result.search_description %}
-        {{ result.search_description }}
-        {% endif %}
-    </li>
-    {% endfor %}
-</ol>
 
-{# Improve pagination by adding: #}
-{% if search_results.paginator.num_pages > 1 %}
-    <p>Page {{ search_results.number }} of {{ search_results.paginator.num_pages }}, showing {{ search_results|length }} result{{ search_results|pluralize }} out of {{ search_results.paginator.count }}</p>
-{% endif %}
 
-{% if search_results.has_previous %}
-<a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}">Previous</a>
-{% endif %}
 
-{% if search_results.has_next %}
-<a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}">Next</a>
-{% endif %}
 
-{% elif search_query %}
-No results found
-{% endif %}
+
 {% endblock %}

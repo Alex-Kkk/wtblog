@@ -4,8 +4,82 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block body_class %}template-blogpage{% endblock %}
-
 {% block content %}
+<!-- Page Header-->
+<header class="masthead" style="background-image: url({{ page.main_image.file.url }})">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="post-heading">
+                    <h1>{{ page.title }}</h1>
+                    <h2 class="subheading">{{ page.intro|richtext }}</h2>
+                    <h3 class="meta">{{ page.date }}</h3>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Post Content-->
+<article class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                {{ page.body|richtext }}
+
+                {% if page.gallery_images.all %} <h3>Галерея изображений:</h3> {% endif %}
+                {% for item in page.gallery_images.all %}
+                
+                    <div style="float: inline-start; margin: 10px">
+                        {% image item.image fill-320x240 %}
+                        <p>{{ item.caption }}</p>
+                    </div>
+                {% endfor %}
+
+                <div style="clear: both">
+                {% with tags=page.tags.all %}
+                    {% if tags %}
+                        <div class="tags">
+                            <b>Теги: </b><br>
+                            {% for tag in tags %}
+                                <a href="{% slugurl 'tags' %}?tag={{ tag }}"><button class="btn btn-secondary" type="button">{{ tag }}</button></a>
+
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+                </div>
+
+ {% with authors=page.authors.all %}
+        {% if authors %}
+            <h3>Автор:</h3>
+            <ul>
+                {% for author in authors %}
+                    <li style="display: inline">
+                        {% image author.author_image fill-40x60 style="vertical-align: middle" %}
+                        {{ author.name }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+                <br>
+                <div class="d-flex justify-content-center mb-4"><a class="btn btn-primary text-uppercase" href="{{ page.get_parent.url }}">Назад к списку статей</a></div>
+              
+            </div>
+
+
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+<!-- 
     <h1>{{ page.title }}</h1>
     <p class="meta">{{ page.date }}</p>
 
@@ -50,6 +124,7 @@
     {% endwith %}
     </div>
     <br>
-    <a href="{{ page.get_parent.url }}">Назад к списку статей</a>
+    <a href="{{ page.get_parent.url }}">Назад к списку статей</a> -->
+
 
 {% endblock %}
