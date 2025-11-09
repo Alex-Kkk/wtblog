@@ -68,7 +68,7 @@ class BlogPage(Page):
             related_name='+'
         )
     intro = models.CharField(max_length=250)
-    #body = RichTextField(blank=False)
+    description = RichTextField(blank=True)
     body = StreamField(
         PostStreamBlock(),
         blank=True,
