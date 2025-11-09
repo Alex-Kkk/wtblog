@@ -90,6 +90,7 @@ class BlogPage(Page):
         MultiFieldPanel([
             "date",
             FieldPanel("authors", widget=forms.CheckboxSelectMultiple),
+            "description",
 
             # Add this:
             "tags",

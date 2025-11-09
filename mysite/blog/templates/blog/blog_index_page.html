@@ -27,7 +27,9 @@
                 <img src="{{ img.url }}" alt="{{ img.alt }}" class="img-fluid">
                 {% endif %}
             {% endwith %}
+            
         </a>
+        <p>{{ post.description|richtext }}</p>
         
         <p class="post-meta">
             {{post.date}}<br>
