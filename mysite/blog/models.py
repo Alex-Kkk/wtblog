@@ -6,7 +6,7 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
 from wagtail.snippets.models import register_snippet
-
+from wagtail.fields import StreamField
 from wagtail.models import Page, Orderable
 from wagtail.fields import RichTextField
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
@@ -15,7 +15,7 @@ from wagtail.search import index
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-
+from blog.blocks import PostStreamBlock
 
 
 class BlogIndexPage(Page):
@@ -68,9 +68,15 @@ class BlogPage(Page):
             related_name='+'
         )
     intro = models.CharField(max_length=250)
-    body = RichTextField(blank=False)
+    #body = RichTextField(blank=False)
+    body = StreamField(
+        PostStreamBlock(),
+        blank=True,
+        use_json_field=True,
+    )
     authors = ParentalManyToManyField('blog.Author', blank=True)
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True) 
+
 
     '''def main_image(self):
         gallery_item = self.gallery_images.first()

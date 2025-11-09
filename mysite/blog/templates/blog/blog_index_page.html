@@ -7,103 +7,61 @@
 
 {% block body_class %}template-blogindexpage{% endblock %}
 
+{% block page_heading%}
+    <h1>{{ page.title }}</h1>
+    <span class="subheading">{{ page.intro|richtext }}</span>
+{% endblock %}                         
+
 {% block content %}
-    <!-- <h1>{{ page.title }}</h1>
+    <!-- Post preview-->
+        {% for post in blogpages %}
+        {% with post=post.specific %}
 
-    <div class="intro">{{ page.intro|richtext }}</div>
-
-    {% for post in blogpages %}
-    {% with post=post.specific %}
-        <hr>
-        <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
-        {% with post.main_image as main_image %}
-            {% if main_image %}{% image main_image fill-160x100 %}{% endif %}
+    <div class="post-preview">
+        <a href="{% pageurl post %}">
+            <h2 class="post-title">{{ post.title }}</h2>
+            <h3 class="post-subtitle">{{ post.intro }}</h3>
+            {% with post.main_image as main_image %}
+                {% if main_image %}
+                {% image post.main_image original as img %}
+                <img src="{{ img.url }}" alt="{{ img.alt }}" class="img-fluid">
+                {% endif %}
+            {% endwith %}
+        </a>
+        
+        <p class="post-meta">
+            {{post.date}}<br>
+            {% with authors=post.authors.all %}
+            {% if authors %}
+                Автор:
+                    {% for author in authors %}
+                            {{ author.name }}   
+                    {% endfor %}
+            {% endif %}
         {% endwith %}
+        </p>
 
-        <p>{{ post.intro }}</p>
-
-        {% endwith %}
-    {% endfor %} -->
-
-
-        <!-- Page Header-->
-        <header class="masthead" style="background-image: url('{{page.main_image.file.url}}')">
-            <div class="container position-relative px-2 px-lg-3">
-                <div class="row gx-1 gx-lg-1 justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-7">
-                        <div class="site-heading">
-                            <h1>{{ page.title }}</h1>
-                            <span class="subheading">{{ page.intro|richtext }}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-        <!-- Main Content-->
-
-        <div class="container px-4 px-lg-5">
-            <div class="row gx-4 gx-lg-5 justify-content-center">
-                <div class="col-md-10 col-lg-8 col-xl-7">
-                    <!-- Post preview-->
-                        {% for post in blogpages %}
-                        {% with post=post.specific %}
-
-   
-
-
-                    <div class="post-preview">
-                        <a href="{% pageurl post %}">
-                            <h2 class="post-title">{{ post.title }}</h2>
-                            <h3 class="post-subtitle">{{ post.intro }}</h3>
-                            {% with post.main_image as main_image %}
-                                {% if main_image %}
-                                {% image post.main_image original as img %}
-                                <img src="{{ img.url }}" alt="{{ img.alt }}" class="img-fluid">
-                                {% endif %}
-                            {% endwith %}
-
-                        </a>
-                         {% with authors=post.authors.all %}
-                            {% if authors %}
-                                <p class="post-meta">Автор:
-                                    {% for author in authors %}
-                                            {{ author.name }}   
-                                    {% endfor %}
-                                </p>
-                           
-                            {% endif %}
-                        {% endwith %}
-                        
-          
-                    </div>
-                    <!-- Divider-->
-                    <hr class="my-4" />
-                    {% endwith %}
-                {% endfor %}
+    </div>
+    <!-- Divider-->
+    <hr class="my-4" />
+    {% endwith %}
+    {% endfor %}
                 
-                    <!-- Pager-->
+    <!-- Pager-->
 
-{% if blogpages.has_next %}
-<ul class="pagination">
-  {% if blogpages.has_previous %}
-  <li><div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="?page={{ blogpages.previous_page_number }}"><i class="fa fa-angle-left"></i></a></div></li> 
-
-  {% endif %}
-  {% for page_num in blogpages.paginator.page_range %}
-
-    <li {% if page_num == blogpages.number %}class="active"{% endif %}><div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="?page={{ page_num }}">{{ page_num }}</a></li>
-  {% endfor %}
-  {% if blogpages.has_next %}
-
-    <li><div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="?page={{ blogpages.next_page_number }}"><i class="fa fa-angle-right"></i></a></li>
-  {% endif %}
-</ul>
-  {% endif %}
+    {% if blogpages.has_next %}
+        <ul class="pagination">
+        {% if blogpages.has_previous %}
+            <li><div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="?page={{ blogpages.previous_page_number }}"><i class="fa fa-angle-left"></i></a></div></li> 
+        {% endif %}
+        {% for page_num in blogpages.paginator.page_range %}
+           <li {% if page_num == blogpages.number %}class="active"{% endif %}><div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="?page={{ page_num }}">{{ page_num }}</a></li>
+        {% endfor %}
+        {% if blogpages.has_next %}
+            <li><div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="?page={{ blogpages.next_page_number }}"><i class="fa fa-angle-right"></i></a></li>
+        {% endif %}
+        </ul>
+    {% endif %}
 
                     
-                </div>
-            </div>
-        </div>
-
-
 {% endblock %}

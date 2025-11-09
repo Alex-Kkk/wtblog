@@ -4,38 +4,21 @@
 {% block body_class %}template-searchresults{% endblock %}
 
 {% block title %}Search{% endblock %}
-
-{% block content %}
-
-<!-- Page Header-->
-<header class="masthead" style="background-image: url('assets/img/post-bg.jpg')">
-    <div class="container position-relative px-4 px-lg-5">
-        <div class="row gx-4 gx-lg-5 justify-content-center">
-            <div class="col-md-10 col-lg-8 col-xl-7">
-                <div class="post-heading">
+{% block page_heading%}
                     <h1>Поиск статей</h1>
-                    <p>Вы искали {% if search_query %} for “{{ search_query }}”{% endif %}, найдено статей: {{ search_results.paginator.count }}</p>
-   
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-
-
-
-
-
-        <!-- Main Content-->
-        <div class="container px-4 px-lg-5">
-            <div class="row gx-4 gx-lg-5 justify-content-center">
-                <div class="col-md-10 col-lg-8 col-xl-7">
-
-
+                    
+{% endblock %}   
+{% block content %}
                 <form class="d-flex justify-content-center mb-3" action="{% url 'search' %}" method="get">
-                    <input type="text" name="query"{% if search_query %} value="{{ search_query }}"{% endif %}>
-                    <input type="submit" value="Найти" class="button">
+                    <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Введите запрос" name="query"{% if search_query %} value="{{ search_query }}"{% endif %}>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-primary" type="button">Найти</button>
+                    </div>
+                    </div>
                 </form>
+
+{% if search_query %} <p>Вы искали  “{{ search_query }}”, найдено статей: {{ search_results.paginator.count }}</p>{% endif %}
                     <!-- Post preview-->
                     {% if search_results %}
                     {% for result in search_results %}
@@ -67,14 +50,6 @@
                     {% if search_results.has_next %}
                     <a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}">Next</a>
                     {% endif %}
-                    
-                </div>
-            </div>
-        </div>
-
-
-
-
 {# Add this paragraph to display the details of results found: #}
 
 

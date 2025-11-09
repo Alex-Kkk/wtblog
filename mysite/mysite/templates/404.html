@@ -4,20 +4,12 @@
 
 {% block body_class %}template-404{% endblock %}
 
+{% block page_heading%}
+    <h1>404</h1>
+    <span class="subheading">Ошибка</span>
+{% endblock %} 
+
 {% block content %}
-
-<!-- Page Header-->
-<header class="masthead" style="background-image: url({{ page.main_image.file.url }})">
-    <div class="container position-relative px-4 px-lg-5">
-        <div class="row gx-4 gx-lg-5 justify-content-center">
-            <div class="col-md-10 col-lg-8 col-xl-7">
-                <div class="post-heading">
-                    <h1>Страница не найдена</h1>
-                    <h2 class="subheading">Вернитесь назад и попробуйте снова</h2>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-
+<p class="text-center">Запрашиваемая страница не найдена.</p>
 {% endblock %}
+

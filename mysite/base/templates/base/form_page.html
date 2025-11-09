@@ -3,48 +3,28 @@
 
 {% block body_class %}template-formpage{% endblock %}
 
+{% block page_heading%}
+    <h1>{{ page.title }}</h1>
+{% endblock %} 
+
 {% block content %}
-        <!-- Page Header-->
-        <header class="masthead" style="background-image: url('{{page.main_image.file.url}}')">
-            <div class="container position-relative px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-7">
-                        <div class="page-heading">
-                            <h1>{{ page.title }}</h1>
 
-                        </div>
+    <div class="text-center"><p>{{ page.intro|richtext}}</p></div>
+    <div class="my-5 d-flex align-items-center justify-content-center">
+            <form class="page-form" action="{% pageurl page %}" method="POST">
+                {% csrf_token %}
+                
+                {% for field in form %}
+                    <div >
+                        {{ field.errors }}
+                        {{ field.label_tag }} <br>
+                        {{ field }}
                     </div>
-                </div>
-            </div>
-        </header>
-        <!-- Main Content-->
-        <main class="mb-4">
-            <div class="container px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-7">
-                        <p>{{ page.intro|richtext }}</p>
-                        <div class="my-5">
-                                <form class="page-form" action="{% pageurl page %}" method="POST">
-                                    {% csrf_token %}
-                                  
-                                    {% for field in form %}
-                                        <div >
-                                            {{ field.errors }}
-                                            {{ field.label_tag }} <br>
-                                            {{ field }}
-                                        </div>
 
-                                    {% endfor %}
-                                    <button type="Submit" class="btn btn-primary text-uppercase mt-3">Отправить</button>
-                                    <a class="btn btn-primary text-uppercase mt-3" href="/">Назад на главную</a>
-                               
-                            </form>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
-        </main>
-
-
+                {% endfor %}
+                <button type="Submit" class="btn btn-primary text-uppercase mt-3">Отправить</button>
+                <a class="btn btn-primary text-uppercase mt-3" href="/">Назад на главную</a>
+            
+        </form>
+    </div>
 {% endblock content %}

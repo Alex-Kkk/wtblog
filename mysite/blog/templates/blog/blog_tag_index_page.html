@@ -1,29 +1,14 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags %}
 
+{% block page_heading%}
+    <h1>{{ page.title }}</h1>
+    <span class="subheading">{{ page.intro|richtext }}</span>
+{% endblock %} 
+  
 {% block content %}
 
-        <!-- Page Header-->
-        <header class="masthead" style="background-image: url('assets/img/home-bg.jpg')">
-            <div class="container position-relative px-2 px-lg-3">
-                <div class="row gx-1 gx-lg-1 justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-7">
-                        <div class="site-heading">
-                        {% if request.GET.tag %}
 
-                            <h2>Статьи с тегом "{{ request.GET.tag }}"</h2>
-                        {% endif %}
-                       
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-
-        <!-- Main Content-->
-        <div class="container px-4 px-lg-5">
-            <div class="row gx-4 gx-lg-5 justify-content-center">
-                <div class="col-md-10 col-lg-8 col-xl-7">
 
     {% for blogpage in blogpages %}
                     <!-- Post preview-->
@@ -39,7 +24,5 @@
     {% empty %}
         Статьи с таким тегом не найдены.
     {% endfor %}
-           </div>
-            </div>
-        </div>
+
 {% endblock %}
