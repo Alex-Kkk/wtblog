@@ -15,6 +15,12 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 WAGTAILADMIN_BASE_URL = "http://127.0.0.1"
 
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_URL = "/static/"
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"
+
 try:
     from .local import *
 except ImportError:

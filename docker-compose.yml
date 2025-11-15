@@ -1,0 +1,59 @@
+version: "3.9"
+
+services:
+
+  app:
+    build:
+      context: mysite/.
+    restart: always
+    volumes:
+      - media_value:/app/media/
+      - static_value:/app/static/
+      - db_value:/app/database/
+
+#    env_file:
+#     - .env
+
+  proxy:
+    build:
+      context: ./proxy
+    restart: always
+    depends_on:
+      - app
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - certbot-web:/vol/www
+      - proxy-dhparams:/vol/proxy
+      - certbot-certs:/etc/letsencrypt
+      - static_value:/var/html/static/
+      - media_value:/var/html/media/
+      - db_value:/var/html/database/
+
+#    environment:
+#      - DOMAIN=${DOMAIN}
+#      - PD_DOMAIN=${PD_DOMAIN}
+  
+
+
+  certbot:
+    build:
+      context: ./certbot
+    command: echo "Skipping..."
+    environment:
+      - EMAIL=${ACME_DEFAULT_EMAIL}
+      - DOMAIN=${DOMAIN}
+    volumes:
+      - certbot-web:/vol/www
+      - certbot-certs:/etc/letsencrypt/
+    depends_on:
+      - proxy
+
+volumes:
+  certbot-web:
+  proxy-dhparams:
+  certbot-certs:
+  static_value:
+  media_value:
+  db_value:

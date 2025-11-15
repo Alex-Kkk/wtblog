@@ -10814,3 +10814,9 @@ img.full-width {
     display: block;
     margin: auto;
 }
+
+img.post-preview-image {
+    width: 100%; /* Or a specific width */
+    height: 400px; /* Your desired maximum height */
+    object-fit: cover; /* Crops the image to fit the container while maintaining aspect ratio */    
+}

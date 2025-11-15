@@ -141,11 +141,7 @@ STATICFILES_DIRS = [
     os.path.join(PROJECT_DIR, "static"),
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
-STATIC_URL = "/static/"
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-MEDIA_URL = "/media/"
 
 # Default storage settings
 # See https://docs.djangoproject.com/en/5.2/ref/settings/#std-setting-STORAGES
