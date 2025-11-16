@@ -43,7 +43,9 @@ RUN chown wagtail:wagtail /app
 # Copy the source code of the project into the container.
 COPY --chown=wagtail:wagtail . .
 RUN mkdir database
+RUN mkdir media
 RUN chown -R wagtail:wagtail /app/database
+RUN chown -R wagtail:wagtail /app/media
 # RUN chown -R wagtail:wagtail /database
 # Use user "wagtail" to run the build commands below and the server itself.
 USER wagtail

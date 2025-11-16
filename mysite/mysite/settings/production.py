@@ -6,7 +6,7 @@ load_dotenv()
 DEBUG = os.environ.get("DJANGO_DEBUG") == "True"
 #DEBUG = False
 
-CSRF_TRUSTED_ORIGINS =[f'http://{os.environ.get("DOMAIN")}',]
+CSRF_TRUSTED_ORIGINS =[f'https://{os.environ.get("DOMAIN")}',]
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
