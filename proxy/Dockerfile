@@ -12,8 +12,8 @@ RUN apk add --no-cache openssl bash
 RUN chmod +x /run.sh
 
 
-#VOLUME /vol/static
-#VOLUME /vol/media
-#VOLUME /vol/www
+VOLUME /vol/static
+VOLUME /vol/media
+VOLUME /vol/www
 
 CMD ["/run.sh"]
