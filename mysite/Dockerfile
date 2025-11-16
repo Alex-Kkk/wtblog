@@ -39,6 +39,7 @@ WORKDIR /app
 # uses SQLite, the folder needs to be owned by the user that
 # will be writing to the database file.
 RUN chown wagtail:wagtail /app
+RUN chown -R wagtail:wagtail /app/mysite/databse
 
 
 # Copy the source code of the project into the container.
