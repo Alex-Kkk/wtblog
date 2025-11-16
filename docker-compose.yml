@@ -11,8 +11,8 @@ services:
       - static_value:/app/static/
       - db_value:/app/database/
 
-#    env_file:
-#     - .env
+    env_file:
+      - .env
 
   proxy:
     build:
@@ -31,11 +31,8 @@ services:
       - media_value:/var/html/media/
       - db_value:/var/html/database/
 
-#    environment:
-#      - DOMAIN=${DOMAIN}
-#      - PD_DOMAIN=${PD_DOMAIN}
-  
-
+    environment:
+      - DOMAIN=${DOMAIN}
 
   certbot:
     build:

@@ -26,6 +26,7 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
 
 # Install the application server.
 RUN pip install "gunicorn==20.0.4"
+RUN pip install "python-dotenv"
 
 # Install the project requirements.
 COPY requirements.txt /

@@ -1,14 +1,18 @@
 from .base import *
+from dotenv import load_dotenv
 
-DEBUG = True
+load_dotenv()
 
-CSRF_TRUSTED_ORIGINS =['http://127.0.0.1',]
+DEBUG = os.environ.get("DJANGO_DEBUG") == "True"
+#DEBUG = False
+
+CSRF_TRUSTED_ORIGINS =[f'http://{os.environ.get("DOMAIN")}',]
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-*a=7ko9_+b0g69m%v4z46@47ym*5bs4)-rvc+a4r3s43jef6tm"
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: define the correct hosts in production!
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [os.environ.get("DOMAIN"),]
 
 # ManifestStaticFilesStorage is recommended in production, to prevent
 # outdated JavaScript / CSS assets being served from cache
@@ -18,7 +22,7 @@ ALLOWED_HOSTS = ["*"]
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-WAGTAILADMIN_BASE_URL = "http://example.com"
+WAGTAILADMIN_BASE_URL = f"http://{os.environ.get("DOMAIN")}"
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = "/static/"
