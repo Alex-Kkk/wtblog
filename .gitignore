@@ -1,5 +1,8 @@
+#Project specific
 mysite/media/
-mysite/static/
+mysite/media/*
+mysite/static/*
+mysite/database/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
