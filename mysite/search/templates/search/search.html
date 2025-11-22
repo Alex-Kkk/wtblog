@@ -5,16 +5,13 @@
 
 {% block title %}Search{% endblock %}
 {% block page_heading%}
-                    <h1>Поиск статей</h1>
-                    
+                    <h1>Поиск</h1>                 
 {% endblock %}   
 {% block content %}
                 <form class="d-flex justify-content-center mb-3" action="{% url 'search' %}" method="get">
                     <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Введите запрос" name="query"{% if search_query %} value="{{ search_query }}"{% endif %}>
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-primary" type="button">Найти</button>
-                    </div>
+                    <input type="text" class="form-control" placeholder="Введите запрос" name="query"{% if search_query %} value="{{ search_query }}"{% endif %}>               
+                    <button class="btn btn-outline-primary" type="submit">Найти</button>                  
                     </div>
                 </form>
 
@@ -28,7 +25,6 @@
                                 {% if result.search_description %}
                                 <h3 class="post-subtitle">{{ result.search_description }}</h3>
                                 {% endif %}
-
                         </a>
 
                     </div>
@@ -51,12 +47,5 @@
                     <a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}">Next</a>
                     {% endif %}
 {# Add this paragraph to display the details of results found: #}
-
-
 {# Replace the <ul> HTML element with the <ol> html element: #}
-
-
-
-
-
 {% endblock %}

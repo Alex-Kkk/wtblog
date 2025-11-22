@@ -116,6 +116,13 @@ class BlogPageGalleryImage(Orderable):
 
 
 class BlogTagIndexPage(Page):
+    main_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
 
     def get_context(self, request):
 

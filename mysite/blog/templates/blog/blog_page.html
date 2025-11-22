@@ -21,10 +21,12 @@
             <p>{{ item.caption }}</p>
         </div>
     {% endfor %}
-    <hr>
+ 
     <div style="clear: both">
+
     {% with tags=page.tags.all %}
         {% if tags %}
+            <hr>
             <div class="tags">
                 <b>Теги: </b><br>
                 {% for tag in tags %}
@@ -38,7 +40,8 @@
 
  {% with authors=page.authors.all %}
         {% if authors %}
-            <hr><b>Автор:<b>
+            <hr>
+            <b>Автор:</b>
             <ul>
                 {% for author in authors %}
                     <li style="display: inline">
