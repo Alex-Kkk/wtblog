@@ -19,7 +19,10 @@ from blog.blocks import PostStreamBlock
 
 
 class BlogIndexPage(Page):
-    intro = RichTextField(blank=True)
+    intro = models.CharField(
+        blank=True,
+        max_length=255, help_text="Write an short summary"
+    )
     main_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,

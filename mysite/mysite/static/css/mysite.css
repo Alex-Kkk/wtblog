@@ -10674,7 +10674,7 @@ header.masthead {
   padding-top: calc(8rem + 57px);
   padding-bottom: 8rem;
   background: no-repeat center center;
-  background-color: #6c757d;
+  background-color: var(--bs-gray);
   background-size: cover;
   background-attachment: scroll;
 }
@@ -10685,7 +10685,7 @@ header.masthead:before {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #212529;
+  background-color: var(--bs-gray-dark);
   opacity: 0.5;
 }
 header.masthead .page-heading,
@@ -10798,6 +10798,8 @@ header.masthead .post-heading .meta a {
   }
 }
 
+/* Wagtail images custom CSS */
+
 img.right {
     float: right;
     margin-left: 2em; /* Adjust as needed for spacing between image and text */
@@ -10819,4 +10821,27 @@ img.post-preview-image {
     width: 100%; /* Or a specific width */
     height: 400px; /* Your desired maximum height */
     object-fit: cover; /* Crops the image to fit the container while maintaining aspect ratio */    
+}
+/* Table custom CSS */
+table {
+  font-family: var(--bs-body-font-family);
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2;}
+
+tr:hover {background-color: #ddd;}
+
+th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: var(--bs-gray);
+  color: white;
 }

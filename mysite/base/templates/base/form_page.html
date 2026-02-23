@@ -10,12 +10,12 @@
 {% block content %}
 
     <div class="text-center"><p>{{ page.intro|richtext}}</p></div>
-    <div class="my-5 d-flex align-items-center justify-content-center">
+    <div class="my-5">
             <form class="page-form" action="{% pageurl page %}" method="POST">
                 {% csrf_token %}
                 
                 {% for field in form %}
-                    <div >
+                    <div> 
                         {{ field.errors }}
                         {{ field.label_tag }} <br>
                         {{ field }}

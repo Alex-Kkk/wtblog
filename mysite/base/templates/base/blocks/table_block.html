@@ -1,0 +1,14 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<div class="table">
+ 
+
+    {% comment %} 
+    The 'table' field within the StructBlock renders as an HTML table by default
+    when using {% include_block %} on the value itself.
+    {% endcomment %}
+    {% include_block self.table %}
+   
+
+
+</div>
