@@ -25,7 +25,8 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
  && rm -rf /var/lib/apt/lists/*
 
 # Install the application server.
-RUN pip install "gunicorn==20.0.4"
+RUN pip install "setuptools<82"
+RUN pip install "gunicorn==25.1.0"
 RUN pip install "python-dotenv"
 
 # Install the project requirements.
@@ -42,8 +43,8 @@ RUN chown wagtail:wagtail /app
 
 # Copy the source code of the project into the container.
 COPY --chown=wagtail:wagtail . .
-RUN mkdir database
-RUN mkdir media
+RUN mkdir -p database
+RUN mkdir -p media
 RUN chown -R wagtail:wagtail /app/database
 RUN chown -R wagtail:wagtail /app/media
 # RUN chown -R wagtail:wagtail /database
