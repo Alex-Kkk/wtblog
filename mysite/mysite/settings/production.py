@@ -6,13 +6,15 @@ load_dotenv()
 DEBUG = os.environ.get("DJANGO_DEBUG") == "True"
 #DEBUG = False
 
-CSRF_TRUSTED_ORIGINS =[f'https://{os.environ.get("DOMAIN")}',]
+#CSRF_TRUSTED_ORIGINS =[f'https://{os.environ.get("DOMAIN")}',]
+CSRF_TRUSTED_ORIGINS = os.environ.get("DOMAIN").split(",")
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: define the correct hosts in production!
-ALLOWED_HOSTS = [os.environ.get("DOMAIN"),]
+#ALLOWED_HOSTS = [os.environ.get("DOMAIN"),]
+ALLOWED_HOSTS = os.environ.get("DOMAIN").split(",")
 
 # ManifestStaticFilesStorage is recommended in production, to prevent
 # outdated JavaScript / CSS assets being served from cache

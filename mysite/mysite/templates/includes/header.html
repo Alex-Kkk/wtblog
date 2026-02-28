@@ -23,18 +23,12 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto py-4 py-lg-0">
-                    {% for menuitem in site_root.get_children.live.in_menu %}
-                       
+                    {% for menuitem in site_root.get_children.live.in_menu %}               
                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% pageurl menuitem %}">{{ menuitem.title }}</a></li>
                     {% endfor %}
-
                     <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/search/">Поиск</a></li>
-
-
                 </li>
-
-                </ul>
-                
+                </ul>    
             </div>
         </div>
     </nav>
