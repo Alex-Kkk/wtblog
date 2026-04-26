@@ -51,7 +51,7 @@ RUN chown -R wagtail:wagtail /app/media
 # Use user "wagtail" to run the build commands below and the server itself.
 USER wagtail
 
-# Collect static files.
+# Collect static files. Do this manually in prod.
 RUN python manage.py collectstatic --noinput --clear
 
 # Runtime command that executes when "docker run" is called, it does the
